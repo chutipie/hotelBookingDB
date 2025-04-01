@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "**MotelEase** is a web-based motel management system designed to simplify the process of managing rooms, bookings, and amenities for motel owners. It provides a seamless experience for both administrators and guests, allowing admins to manage rooms and view bookings, while guests can book rooms and view their reservations.",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
@@ -16,5 +17,6 @@
     "express": "^4.21.2",
     "mongoose": "^8.12.1",
     "multer": "^1.4.5-lts.1"
-  }
+  },
+  "devDependencies": {}
 }
