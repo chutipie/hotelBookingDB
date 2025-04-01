@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - MotelEase</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo h1 {
+        font-family: "Lalezar", cursive;
+        color: #0066cc;
+        font-size: 2rem;
+        margin-left: 10px;
+      }
+
+      .logo i {
+        color: #0066cc;
+        font-size: 2.2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        font-size: 1rem;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: #0066cc;
+      }
+
+      main {
+        padding-top: 100px;
+        padding-bottom: 50px;
+      }
+
+      .checkout-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+      }
+
+      .checkout-header {
+        background-color: #ff7734;
+        color: #fff;
+        padding: 25px 30px;
+        text-align: center;
+      }
+
+      .checkout-header h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+      }
+
+      .checkout-header p {
+        opacity: 0.9;
+      }
+
+      .checkout-form {
+        padding: 30px;
+      }
+
+      .booking-summary {
+        background-color: #f5f5f5;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+      }
+
+      .booking-summary h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .summary-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .summary-label {
+        font-weight: 600;
+        color: #555;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-family: "Montserrat", sans-serif;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #ff7734;
+        box-shadow: 0 0 0 3px rgba(255, 119, 52, 0.1);
+        outline: none;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: #ff7734;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: "Montserrat", sans-serif;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        width: 100%;
+      }
+
+      .btn:hover {
+        background-color: #e66a2e;
+      }
+
+      .btn:active {
+        transform: translateY(2px);
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #0066cc;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      footer {
+        background-color: #222;
+        color: #fff;
+        padding: 30px 0;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .footer-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-right: 20px;
+      }
+
+      .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: #ff7734;
+      }
+
+      .social-icons a {
+        display: inline-block;
+        margin-left: 15px;
+        color: #fff;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: #ff7734;
+      }
+
+      .copyright {
+        margin-top: 20px;
+        color: #aaa;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+
+        .header-content {
+          flex-direction: column;
+          padding: 15px 0;
+        }
+
+        .nav-links {
+          margin-top: 20px;
+        }
+
+        .nav-links li {
+          margin: 0 15px;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .footer-links {
+          margin-bottom: 20px;
+          justify-content: center;
+        }
+
+        .social-icons {
+          margin-top: 20px;
+        }
+      }
+
+      .message {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        text-align: center;
+        display: none;
+      }
+
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <i class="fas fa-hotel"></i>
+            <h1>MotelEase</h1>
+          </div>
+          <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="index.html">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="checkout-container">
+          <div class="checkout-header">
+            <h2>Finalize Your Booking</h2>
+            <p>Complete your reservation details</p>
+          </div>
+
+          <div class="checkout-form">
+            <div id="message" class="message"></div>
+
+            <div class="booking-summary">
+              <h3>Booking Summary</h3>
+              <div class="summary-item">
+                <span class="summary-label">Room Type:</span>
+                <span id="summary-room-type">-</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">Check-in Date:</span>
+                <span id="summary-checkin">-</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">Check-out Date:</span>
+                <span id="summary-checkout">-</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">Guests:</span>
+                <span id="summary-guests">-</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">Total Nights:</span>
+                <span id="summary-nights">-</span>
+              </div>
+            </div>
+
+            <!-- checkout.html -->
+            <form id="checkout-form" action="/api/bookings" method="POST">
+              <input type="hidden" id="room-type-hidden" name="room_type" />
+              <input
+                type="hidden"
+                id="checkin-date-hidden"
+                name="checkin_date"
+              />
+              <input
+                type="hidden"
+                id="checkout-date-hidden"
+                name="checkout_date"
+              />
+              <input type="hidden" id="guests-hidden" name="guests" />
+              <input type="hidden" id="nights-hidden" name="nights" />
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="first-name">First Name</label>
+                  <input
+                    type="text"
+                    id="first-name"
+                    name="first_name"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="last-name">Last Name</label>
+                  <input type="text" id="last-name" name="last_name" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+
+              <div class="form-group">
+                <label for="payment-method">Payment Method</label>
+                <select id="payment-method" name="payment_method" required>
+                  <option value="" disabled selected>
+                    Select payment method
+                  </option>
+                  <option value="credit_card">Credit Card</option>
+                  <option value="paypal">PayPal</option>
+                  <option value="pay_at_hotel">Pay at Hotel</option>
+                </select>
+              </div>
+
+              <div class="form-group" id="card-details" style="display: none">
+                <label for="card-number">Card Number</label>
+                <input
+                  type="text"
+                  id="card-number"
+                  name="card_number"
+                  placeholder="XXXX XXXX XXXX XXXX"
+                />
+
+                <div class="form-grid" style="margin-top: 15px">
+                  <div class="form-group">
+                    <label for="expiry-date">Expiry Date</label>
+                    <input
+                      type="text"
+                      id="expiry-date"
+                      name="expiry_date"
+                      placeholder="MM/YY"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="special-requests"
+                  >Special Requests (Optional)</label
+                >
+                <textarea
+                  id="special-requests"
+                  name="special_requests"
+                  rows="3"
+                  style="
+                    width: 100%;
+                    padding: 12px 15px;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    font-family: 'Montserrat', sans-serif;
+                  "
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn">Complete Booking</button>
+            </form>
+
+            <a href="/home" class="back-link"
+              ><i class="fas fa-arrow-left"></i> Back to Room Selection</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 MotelEase. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <!-- Add this to the <head> section of checkout.html -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomType = urlParams.get("room_type");
+        const checkinDate = urlParams.get("checkin_date");
+        const checkoutDate = urlParams.get("checkout_date");
+        const guests = urlParams.get("guests");
+
+        // Calculate number of nights
+        const calculateNights = (checkin, checkout) => {
+          const start = new Date(checkin);
+          const end = new Date(checkout);
+          const diffTime = Math.abs(end - start);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          return diffDays;
+        };
+
+        const nights = calculateNights(checkinDate, checkoutDate);
+
+        // Populate hidden fields
+        document.getElementById("room-type-hidden").value = roomType;
+        document.getElementById("checkin-date-hidden").value = checkinDate;
+        document.getElementById("checkout-date-hidden").value = checkoutDate;
+        document.getElementById("guests-hidden").value = guests;
+        document.getElementById("nights-hidden").value = nights;
+
+        // Populate booking summary
+        document.getElementById("summary-room-type").textContent =
+          roomType || "Not specified";
+        document.getElementById("summary-checkin").textContent = checkinDate
+          ? new Date(checkinDate).toLocaleDateString()
+          : "Not specified";
+        document.getElementById("summary-checkout").textContent = checkoutDate
+          ? new Date(checkoutDate).toLocaleDateString()
+          : "Not specified";
+        document.getElementById("summary-guests").textContent = guests
+          ? `${guests} ${guests === "1" ? "Guest" : "Guests"}`
+          : "Not specified";
+        document.getElementById("summary-nights").textContent = `${nights} ${
+          nights === 1 ? "Night" : "Nights"
+        }`;
+
+        // Form submission with SweetAlert
+        const checkoutForm = document.getElementById("checkout-form");
+        checkoutForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Collect form data
+          const formData = new FormData(this);
+          const bookingData = Object.fromEntries(formData.entries());
+
+          try {
+            // Send booking data to the server
+            const response = await fetch("/api/bookings", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(bookingData),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              // Show success notification
+              Swal.fire({
+                icon: "success",
+                title: "Booking Successful!",
+                text: result.message,
+                confirmButtonText: "OK",
+              }).then(() => {
+                // Redirect to home page or another page after successful booking
+                window.location.href = "/home";
+              });
+            } else {
+              // Show error notification
+              Swal.fire({
+                icon: "error",
+                title: "Booking Failed",
+                text: result.error || "An error occurred. Please try again.",
+                confirmButtonText: "OK",
+              });
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            // Show error notification for unexpected errors
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "An unexpected error occurred. Please try again.",
+              confirmButtonText: "OK",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - MotelEase</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo h1 {
+        font-family: "Lalezar", cursive;
+        color: #0066cc;
+        font-size: 2rem;
+        margin-left: 10px;
+      }
+
+      .logo i {
+        color: #0066cc;
+        font-size: 2.2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        font-size: 1rem;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: #0066cc;
+      }
+
+      .page-header {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("/api/placeholder/1200/300") no-repeat center center/cover;
+        color: #fff;
+        text-align: center;
+        padding: 120px 0 60px;
+        margin-bottom: 50px;
+      }
+
+      .page-header h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+
+      .page-header p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .booking-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        margin-bottom: 60px;
+      }
+
+      .booking-header {
+        background-color: #ff7734;
+        color: #fff;
+        padding: 25px 30px;
+        text-align: center;
+      }
+
+      .booking-header h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+      }
+
+      .booking-header p {
+        opacity: 0.9;
+      }
+
+      .booking-form {
+        padding: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-family: "Montserrat", sans-serif;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #ff7734;
+        box-shadow: 0 0 0 3px rgba(255, 119, 52, 0.1);
+        outline: none;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: #ff7734;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: "Montserrat", sans-serif;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        width: 100%;
+      }
+
+      .btn:hover {
+        background-color: #e66a2e;
+      }
+
+      .btn:active {
+        transform: translateY(2px);
+      }
+
+      .features-section {
+        padding: 50px 0;
+        text-align: center;
+      }
+
+      .features-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+        color: #333;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .feature-card {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        color: #ff7734;
+        margin-bottom: 20px;
+      }
+
+      .feature-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .feature-card p {
+        color: #666;
+      }
+
+      footer {
+        background-color: #222;
+        color: #fff;
+        padding: 30px 0;
+        margin-top: 60px;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .footer-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-right: 20px;
+      }
+
+      .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: #ff7734;
+      }
+
+      .social-icons a {
+        display: inline-block;
+        margin-left: 15px;
+        color: #fff;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: #ff7734;
+      }
+
+      .copyright {
+        margin-top: 20px;
+        color: #aaa;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          padding: 15px 0;
+        }
+
+        .nav-links {
+          margin-top: 20px;
+        }
+
+        .nav-links li {
+          margin: 0 15px;
+        }
+
+        .page-header h1 {
+          font-size: 2.5rem;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .footer-links {
+          margin-bottom: 20px;
+          justify-content: center;
+        }
+
+        .social-icons {
+          margin-top: 20px;
+        }
+      }
+
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* New styles for room preview */
+      .room-preview {
+        margin-top: 40px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .room-preview h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .room-preview img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+      }
+
+      .room-preview p {
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .room-preview ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .room-preview ul li {
+        margin-bottom: 5px;
+        color: #666;
+      }
+
+      .room-preview ul li i {
+        color: #ff7734;
+        margin-right: 10px;
+      }
+      /* Styling for the room images container */
+      .room-images {
+        display: flex;
+        overflow-x: auto; /* Enables horizontal scrolling */
+        gap: 10px; /* Space between images */
+        padding: 10px 0;
+      }
+
+      /* Styling for individual images */
+      .room-images img {
+        max-width: 200px;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <i class="fas fa-hotel"></i>
+            <h1>MotelEase</h1>
+          </div>
+          <ul class="nav-links">
+            <li><a href="../index.html" class="active">Home</a></li>
+            <li><a href="../aboutus.html">About Us</a></li>
+            <li><a href="../index.html">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-header">
+      <div class="container">
+        <h1>Welcome to MotelEase</h1>
+        <p>
+          Simplified motel management system for owners and a seamless
+          experience for guests
+        </p>
+      </div>
+    </div>
+
+    <main>
+      <div class="container">
+        <div class="booking-container">
+          <div class="booking-header">
+            <h2>Create a Booking</h2>
+            <p>Find and book your perfect stay in just a few clicks</p>
+          </div>
+
+          <!-- home.html -->
+          <form action="checkout" method="GET" id="booking-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="checkin-date">Check-in Date</label>
+                <input
+                  type="date"
+                  id="checkin-date"
+                  name="checkin_date"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="checkout-date">Check-out Date</label>
+                <input
+                  type="date"
+                  id="checkout-date"
+                  name="checkout_date"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="room-type">Room Type</label>
+              <select id="room-type" name="room_type" required>
+                <option value="" disabled selected>Select a room type</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="guests">Number of Guests</label>
+              <select id="guests" name="guests" required>
+                <option value="1">1 Guest</option>
+                <option value="2" selected>2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5">5+ Guests</option>
+              </select>
+            </div>
+            <button type="submit" class="btn">Book Now</button>
+          </form>
+        </div>
+
+        <!-- Room Preview Section -->
+        <div class="room-preview" id="room-preview">
+          <h3>Room Preview</h3>
+          <p>Select a room type to view details.</p>
+          <div class="room-images" id="room-images"></div>
+          <!-- Section for images -->
+        </div>
+
+        <div class="features-section">
+          <h2>Why Choose MotelEase?</h2>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-search"></i>
+              </div>
+              <h3>Easy Booking</h3>
+              <p>
+                Find and book your perfect stay in just a few clicks with our
+                user-friendly platform.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-percent"></i>
+              </div>
+              <h3>Best Rates</h3>
+              <p>
+                We guarantee the best rates and exclusive deals for our
+                registered users.
+              </p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+              </div>
+              <h3>24/7 Support</h3>
+              <p>
+                Our friendly customer service team is available around the clock
+                to assist you.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../aboutus.html">About Us</a></li>
+            <li><a href="../privacy.html">Privacy Policy</a></li>
+            <li><a href="../terms.html">Terms of Service</a></li>
+            <li><a href="../contact.html">Contact Us</a></li>
+          </ul>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 MotelEase. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Set default values for dates
+      window.addEventListener("DOMContentLoaded", function () {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const formatDate = (date) => {
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const day = String(date.getDate()).padStart(2, "0");
+          return `${year}-${month}-${day}`;
+        };
+
+        document.getElementById("checkin-date").value = formatDate(today);
+        document.getElementById("checkout-date").value = formatDate(tomorrow);
+
+        // Validation for check-out date
+        const checkinInput = document.getElementById("checkin-date");
+        const checkoutInput = document.getElementById("checkout-date");
+
+        checkinInput.addEventListener("change", function () {
+          const checkinDate = new Date(this.value);
+          const checkoutDate = new Date(checkoutInput.value);
+
+          if (checkoutDate <= checkinDate) {
+            const nextDay = new Date(checkinDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            checkoutInput.value = formatDate(nextDay);
+          }
+        });
+
+        checkoutInput.addEventListener("change", function () {
+          const checkinDate = new Date(checkinInput.value);
+          const checkoutDate = new Date(this.value);
+
+          if (checkoutDate <= checkinDate) {
+            alert("Check-out date must be after check-in date");
+            const nextDay = new Date(checkinDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            this.value = formatDate(nextDay);
+          }
+        });
+
+        // Fetch room data when the page loads
+        fetchRoomData();
+      });
+
+      // Fetch room data when the page loads
+      async function fetchRoomData() {
+        try {
+          const response = await fetch("/api/rooms"); // Fetch data from the API endpoint
+          const rooms = await response.json();
+
+          // Populate room type dropdown
+          const roomTypeSelect = document.getElementById("room-type");
+          roomTypeSelect.innerHTML =
+            '<option value="" disabled selected>Select a room type</option>';
+          rooms.forEach((room) => {
+            const option = document.createElement("option");
+            option.value = room.type;
+            option.textContent = room.name;
+            roomTypeSelect.appendChild(option);
+          });
+
+          // Add event listener for room type selection
+          roomTypeSelect.addEventListener("change", function () {
+            const selectedRoom = rooms.find((room) => room.type === this.value);
+            updateRoomPreview(selectedRoom);
+          });
+        } catch (error) {
+          console.error("Error fetching room data:", error);
+        }
+      }
+
+      function updateRoomPreview(room) {
+        const roomPreview = document.getElementById("room-preview");
+        const roomImagesContainer = document.getElementById("room-images");
+
+        if (room) {
+          // Update room details
+          roomPreview.innerHTML = `
+      <h3>${room.name}</h3>
+      <div class="room-images" id="room-images"></div>
+      <p>${room.description}</p>
+      <ul>
+        ${room.inclusions
+          .map((item) => `<li><i class="fas fa-check"></i>${item}</li>`)
+          .join("")}
+      </ul>
+    `;
+
+          // Get fresh reference to the container after recreating it
+          const imagesContainer = document.getElementById("room-images");
+
+          // Clear previous images (just in case)
+          imagesContainer.innerHTML = "";
+
+          // Add images if there are any
+          if (room.images && room.images.length > 0) {
+            room.images.forEach((imageUrl) => {
+              const imgElement = document.createElement("img");
+              imgElement.src = imageUrl;
+              imgElement.alt = room.name;
+              imgElement.loading = "lazy"; // For better performance with many images
+              imagesContainer.appendChild(imgElement);
+            });
+          } else {
+            imagesContainer.innerHTML =
+              "<p>No images available for this room.</p>";
+          }
+        } else {
+          roomPreview.innerHTML = `
+      <h3>Room Preview</h3>
+      <p>Select a room type to view details.</p>
+      <div class="room-images" id="room-images"></div>
+    `;
+        }
+      }
+
+      // Call fetchRoomData when the page loads
+      window.addEventListener("DOMContentLoaded", fetchRoomData);
+    </script>
+  </body>
+</html>

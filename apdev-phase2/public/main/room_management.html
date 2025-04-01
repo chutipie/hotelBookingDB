@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Room Management - MotelEase</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reuse the same styles from home.html */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo h1 {
+        font-family: "Lalezar", cursive;
+        color: #0066cc;
+        font-size: 2rem;
+        margin-left: 10px;
+      }
+
+      .logo i {
+        color: #0066cc;
+        font-size: 2.2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        font-size: 1rem;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: #0066cc;
+      }
+
+      .page-header {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("/api/placeholder/1200/300") no-repeat center center/cover;
+        color: #fff;
+        text-align: center;
+        padding: 120px 0 60px;
+        margin-bottom: 50px;
+      }
+
+      .page-header h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+
+      .page-header p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .room-management {
+        padding: 50px 0;
+        text-align: center;
+      }
+
+      .room-management h2 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .room-management p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 40px;
+      }
+
+      .add-room-btn {
+        background-color: #ff7734;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+      }
+
+      .add-room-btn:hover {
+        background-color: #e66a2e;
+      }
+
+      .add-room-btn:active {
+        transform: translateY(2px);
+      }
+
+      .rooms-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+      }
+
+      .room-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+
+      .room-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .room-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .room-info {
+        padding: 20px;
+        text-align: left;
+      }
+
+      .room-type {
+        color: #ff7734;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+
+      .room-name {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .room-desc {
+        color: #666;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.9rem;
+      }
+
+      .inclusion-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .inclusion-tag {
+        background-color: #f0f0f0;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        color: #666;
+      }
+
+      .room-form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+        display: none;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+        text-align: left;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-family: "Montserrat", sans-serif;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        border-color: #ff7734;
+        box-shadow: 0 0 0 3px rgba(255, 119, 52, 0.1);
+        outline: none;
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: #ff7734;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: "Montserrat", sans-serif;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        width: 100%;
+      }
+
+      .btn:hover {
+        background-color: #e66a2e;
+      }
+
+      .btn:active {
+        transform: translateY(2px);
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+      }
+
+      .btn-cancel {
+        background-color: #ccc;
+      }
+
+      .btn-cancel:hover {
+        background-color: #bbb;
+      }
+
+      .btn-delete {
+        background-color: #dc3545;
+      }
+
+      .btn-delete:hover {
+        background-color: #c82333;
+      }
+
+      .form-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .close-form {
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .current-images {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+
+      .current-image {
+        position: relative;
+        width: 100px;
+        height: 100px;
+      }
+
+      .current-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      .remove-image {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .no-rooms {
+        text-align: center;
+        padding: 40px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .no-rooms i {
+        font-size: 3rem;
+        color: #ddd;
+        margin-bottom: 20px;
+      }
+
+      .no-rooms h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #666;
+      }
+
+      footer {
+        background-color: #222;
+        color: #fff;
+        padding: 30px 0;
+        margin-top: 60px;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .footer-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-right: 20px;
+      }
+
+      .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: #ff7734;
+      }
+
+      .social-icons a {
+        display: inline-block;
+        margin-left: 15px;
+        color: #fff;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: #ff7734;
+      }
+
+      .copyright {
+        margin-top: 20px;
+        color: #aaa;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          padding: 15px 0;
+        }
+
+        .nav-links {
+          margin-top: 20px;
+        }
+
+        .nav-links li {
+          margin: 0 15px;
+        }
+
+        .page-header h1 {
+          font-size: 2.5rem;
+        }
+
+        .rooms-container {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .footer-links {
+          margin-bottom: 20px;
+          justify-content: center;
+        }
+
+        .social-icons {
+          margin-top: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <i class="fas fa-hotel"></i>
+            <h1>MotelEase</h1>
+          </div>
+          <ul class="nav-links">
+            <li><a href="admin">Home</a></li>
+            <li>
+              <a href="room-management" class="active">Manage Rooms</a>
+            </li>
+            <li><a href="admin-bookings">View Bookings</a></li>
+            <li><a href="../index.html">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-header">
+      <div class="container">
+        <h1>Room Management</h1>
+        <p>View, edit, or add new rooms to your motel.</p>
+      </div>
+    </div>
+
+    <main>
+      <div class="container">
+        <div class="room-management">
+          <h2>Your Rooms</h2>
+          <p>Click on a room to edit its details or add a new room.</p>
+          <button id="add-new-room-btn" class="add-room-btn">
+            <i class="fas fa-plus"></i> Add New Room
+          </button>
+
+          <!-- Room Cards Container -->
+          <div id="rooms-container" class="rooms-container">
+            <!-- Room cards will be displayed here dynamically -->
+          </div>
+
+          <!-- Add Room Form -->
+          <div id="add-room-form-container" class="room-form">
+            <div class="form-header">
+              <h3 id="form-title">Add New Room</h3>
+              <button class="close-form" id="close-form">&times;</button>
+            </div>
+            <form id="room-form" enctype="multipart/form-data">
+              <input type="hidden" id="room-id" name="room-id" />
+              <div class="form-group">
+                <label for="room-type">Room Type</label>
+                <input
+                  type="text"
+                  id="room-type"
+                  name="room-type"
+                  placeholder="e.g., Single, Double, Suite"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="room-name">Room Name</label>
+                <input
+                  type="text"
+                  id="room-name"
+                  name="room-name"
+                  placeholder="e.g., Single Room, Double Room"
+                  required
+                />
+              </div>
+
+              <!-- Current Images (for edit mode) -->
+              <div id="current-images-container" class="form-group" style="display: none;">
+                <label>Current Images</label>
+                <div id="current-images" class="current-images">
+                  <!-- Current images will be displayed here -->
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="room-images">
+                  <span id="images-label">Room Images</span>
+                </label>
+                <input
+                  type="file"
+                  id="room-images"
+                  name="room-images"
+                  accept="image/*"
+                  multiple
+                />
+              </div>
+              <div class="form-group">
+                <label for="room-description">Description</label>
+                <textarea
+                  id="room-description"
+                  name="room-description"
+                  placeholder="Enter a description of the room"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="room-inclusions">
+                  Inclusions (comma-separated)
+                </label>
+                <input
+                  type="text"
+                  id="room-inclusions"
+                  name="room-inclusions"
+                  placeholder="e.g., Free Wi-Fi, Breakfast, Air Conditioning"
+                  required
+                />
+              </div>
+
+              <div class="form-actions" id="edit-actions" style="display: none;">
+                <button type="button" class="btn btn-delete" id="delete-room">
+                  Delete Room
+                </button>
+                <button type="submit" class="btn">Update Room</button>
+              </div>
+
+              <div id="add-actions">
+                <button type="submit" class="btn">Add Room</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../aboutus.html">About Us</a></li>
+            <li><a href="../privacy.html">Privacy Policy</a></li>
+            <li><a href="../terms.html">Terms of Service</a></li>
+            <li><a href="../contact.html">Contact Us</a></li>
+          </ul>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 MotelEase. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const roomsContainer = document.getElementById("rooms-container");
+        const addRoomFormContainer = document.getElementById(
+          "add-room-form-container"
+        );
+        const roomForm = document.getElementById("room-form");
+        const addNewRoomBtn = document.getElementById("add-new-room-btn");
+        const closeFormBtn = document.getElementById("close-form");
+        const formTitle = document.getElementById("form-title");
+        const roomIdInput = document.getElementById("room-id");
+        const addActions = document.getElementById("add-actions");
+        const editActions = document.getElementById("edit-actions");
+        const deleteRoomBtn = document.getElementById("delete-room");
+        const currentImagesContainer = document.getElementById(
+          "current-images-container"
+        );
+
+        // Fetch and display all rooms
+        fetchRooms();
+
+        // Function to fetch all rooms from the API
+        async function fetchRooms() {
+          try {
+            const response = await fetch("/api/rooms");
+            const rooms = await response.json();
+
+            if (rooms.length === 0) {
+              roomsContainer.innerHTML = `
+                <div class="no-rooms">
+                  <i class="fas fa-bed"></i>
+                  <h3>No Rooms Found</h3>
+                  <p>Click "Add New Room" to get started.</p>
+                </div>
+              `;
+            } else {
+              displayRooms(rooms);
+            }
+          } catch (error) {
+            console.error("Error fetching rooms:", error);
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Failed to load rooms. Please try again later.",
+            });
+          }
+        }
+
+        // Function to display rooms in the container
+        function displayRooms(rooms) {
+          roomsContainer.innerHTML = "";
+
+          rooms.forEach((room) => {
+            // Create room card
+            const roomCard = document.createElement("div");
+            roomCard.className = "room-card";
+            roomCard.dataset.id = room._id;
+
+            // Get the first image for the card
+            const imagePath = room.images && room.images.length > 0 
+              ? room.images[0] 
+              : "/api/placeholder/300/200";
+
+            // Truncate description
+            const truncatedDesc =
+              room.description.length > 100
+                ? room.description.substring(0, 100) + "..."
+                : room.description;
+
+            // Display up to 3 inclusions tags
+            const inclusionTags = room.inclusions
+              .slice(0, 3)
+              .map(
+                (inclusion) =>
+                  `<span class="inclusion-tag">${inclusion}</span>`
+              )
+              .join("");
+
+            // Show a "+X more" tag if there are more than 3 inclusions
+            const moreTag =
+              room.inclusions.length > 3
+                ? `<span class="inclusion-tag">+${
+                    room.inclusions.length - 3
+                  } more</span>`
+                : "";
+
+            roomCard.innerHTML = `
+              <img src="${imagePath}" alt="${room.name}" class="room-image">
+              <div class="room-info">
+                <div class="room-type">${room.type}</div>
+                <h3 class="room-name">${room.name}</h3>
+                <p class="room-desc">${truncatedDesc}</p>
+                <div class="inclusion-tags">
+                  ${inclusionTags}
+                  ${moreTag}
+                </div>
+              </div>
+            `;
+
+            // Add click event to edit room
+            roomCard.addEventListener("click", () => {
+              showEditForm(room);
+            });
+
+            roomsContainer.appendChild(roomCard);
+          });
+        }
+
+        // Function to show the edit form with room data
+        function showEditForm(room) {
+          formTitle.textContent = "Edit Room";
+          roomIdInput.value = room._id;
+          
+          document.getElementById("room-type").value = room.type;
+          document.getElementById("room-name").value = room.name;
+          document.getElementById("room-description").value = room.description;
+          document.getElementById("room-inclusions").value = room.inclusions.join(", ");
+          
+          // Show current images
+          currentImagesContainer.style.display = "block";
+          const currentImagesDiv = document.getElementById("current-images");
+          currentImagesDiv.innerHTML = "";
+          
+          room.images.forEach((image, index) => {
+            const imageContainer = document.createElement("div");
+            imageContainer.className = "current-image";
+            imageContainer.innerHTML = `
+              <img src="${image}" alt="Room image ${index + 1}">
+              <button type="button" class="remove-image" data-image="${image}">
+                <i class="fas fa-times"></i>
+              </button>
+            `;
+            currentImagesDiv.appendChild(imageContainer);
+          });
+          
+          // Images label for edit mode
+          document.getElementById("images-label").textContent = "Add More Images";
+          
+          // Make image upload optional for edit
+          document.getElementById("room-images").removeAttribute("required");
+          
+          // Show edit actions, hide add actions
+          editActions.style.display = "flex";
+          addActions.style.display = "none";
+          
+          // Show the form
+          addRoomFormContainer.style.display = "block";
+          
+          // Scroll to the form
+          addRoomFormContainer.scrollIntoView({ behavior: "smooth" });
+        }
+
+        // Function to show the add new room form
+        function showAddForm() {
+          formTitle.textContent = "Add New Room";
+          roomForm.reset();
+          roomIdInput.value = "";
+          
+          // Hide current images
+          currentImagesContainer.style.display = "none";
+          
+          // Update label for add mode
+          document.getElementById("images-label").textContent = "Room Images";
+          
+          // Make image upload required for new rooms
+          document.getElementById("room-images").setAttribute("required", "");
+          
+          // Show add actions, hide edit actions
+          editActions.style.display = "none";
+          addActions.style.display = "block";
+          
+          // Show the form
+          addRoomFormContainer.style.display = "block";
+          
+          // Scroll to the form
+          addRoomFormContainer.scrollIntoView({ behavior: "smooth" });
+        }
+
+        // Add New Room button click event
+        addNewRoomBtn.addEventListener("click", showAddForm);
+
+        // Close form button click event
+        closeFormBtn.addEventListener("click", () => {
+          addRoomFormContainer.style.display = "none";
+        });
+
+        // Form submission
+        roomForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          
+          const roomId = document.getElementById("room-id").value;
+          const isEditMode = roomId !== "";
+          
+          const formData = new FormData(roomForm);
+          
+          try {
+            let url = "/api/rooms";
+            let method = "POST";
+            
+            // If editing, use PUT request with room ID
+            if (isEditMode) {
+              url = `/api/rooms/${roomId}`;
+              method = "PUT";
+            }
+            
+            const response = await fetch(url, {
+              method: method,
+              body: formData,
+            });
+            
+            if (response.ok) {
+              // Show success message
+              Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: isEditMode ? "Room updated successfully!" : "Room added successfully!",
+                showConfirmButton: false,
+                timer: 1500,
+              }).then(() => {
+                // Refresh room list and hide form
+                fetchRooms();
+                addRoomFormContainer.style.display = "none";
+              });
+            } else {
+              // Show error message
+              const errorData = await response.json();
+              throw new Error(errorData.error || "Operation failed");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: error.message || "An error occurred. Please try again.",
+            });
+          }
+        });
+
+        // Delete Room button click event
+        deleteRoomBtn.addEventListener("click", async () => {
+          const roomId = document.getElementById("room-id").value;
+          
+          // Confirm deletion
+          const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "This action cannot be undone!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#dc3545",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Yes, delete it!",
+          });
+          
+          if (result.isConfirmed) {
+            try {
+              const response = await fetch(`/api/rooms/${roomId}`, {
+                method: "DELETE",
+              });
+              
+              if (response.ok) {
+                Swal.fire({
+                  icon: "success",
+                  title: "Deleted!",
+                  text: "Room has been deleted.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                }).then(() => {
+                  // Refresh room list and hide form
+                  fetchRooms();
+                  addRoomFormContainer.style.display = "none";
+                });
+              } else {
+                throw new Error("Failed to delete room");
+              }
+            } catch (error) {
+              console.error("Error:", error);
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: error.message || "An error occurred. Please try again.",
+              });
+            }
+          }
+        });
+
+        // Event delegation for removing images
+        document.getElementById("current-images").addEventListener("click", async (event) => {
+          const removeBtn = event.target.closest(".remove-image");
+          if (!removeBtn) return;
+          
+          const imagePath = removeBtn.dataset.image;
+          const roomId = document.getElementById("room-id").value;
+          
+          try {
+            const response = await fetch(`/api/rooms/${roomId}/images`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ imagePath }),
+            });
+            
+            if (response.ok) {
+              // Remove the image from the display
+              removeBtn.closest(".current-image").remove();
+              
+              // Show success message
+              Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: "Image removed successfully!",
+                showConfirmButton: false,
+                timer: 1000,
+              });
+            } else {
+              throw new Error("Failed to remove image");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: error.message || "An error occurred. Please try again.",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

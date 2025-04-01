@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Home - MotelEase</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reuse the same styles from home.html */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo h1 {
+        font-family: "Lalezar", cursive;
+        color: #0066cc;
+        font-size: 2rem;
+        margin-left: 10px;
+      }
+
+      .logo i {
+        color: #0066cc;
+        font-size: 2.2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        margin-left: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        font-size: 1rem;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: #0066cc;
+      }
+
+      .page-header {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("/api/placeholder/1200/300") no-repeat center center/cover;
+        color: #fff;
+        text-align: center;
+        padding: 120px 0 60px;
+        margin-bottom: 50px;
+      }
+
+      .page-header h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+
+      .page-header p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .admin-dashboard {
+        padding: 50px 0;
+        text-align: center;
+      }
+
+      .admin-dashboard h2 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .admin-dashboard p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 40px;
+      }
+
+      .admin-links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .admin-link-card {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .admin-link-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .admin-link-card i {
+        font-size: 2.5rem;
+        color: #ff7734;
+        margin-bottom: 20px;
+      }
+
+      .admin-link-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .admin-link-card a {
+        text-decoration: none;
+        color: #0066cc;
+        font-weight: 600;
+      }
+
+      .admin-link-card a:hover {
+        text-decoration: underline;
+      }
+
+      footer {
+        background-color: #222;
+        color: #fff;
+        padding: 30px 0;
+        margin-top: 60px;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .footer-links {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-right: 20px;
+      }
+
+      .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: #ff7734;
+      }
+
+      .social-icons a {
+        display: inline-block;
+        margin-left: 15px;
+        color: #fff;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: #ff7734;
+      }
+
+      .copyright {
+        margin-top: 20px;
+        color: #aaa;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          padding: 15px 0;
+        }
+
+        .nav-links {
+          margin-top: 20px;
+        }
+
+        .nav-links li {
+          margin: 0 15px;
+        }
+
+        .page-header h1 {
+          font-size: 2.5rem;
+        }
+
+        .admin-links {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .footer-links {
+          margin-bottom: 20px;
+          justify-content: center;
+        }
+
+        .social-icons {
+          margin-top: 20px;
+        }
+      }
+
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .admin-links {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <i class="fas fa-hotel"></i>
+            <h1>MotelEase</h1>
+          </div>
+          <ul class="nav-links">
+            <li><a href="admin" class="active">Home</a></li>
+            <li><a href="room-management">Manage Rooms</a></li>
+            <!-- <li><a href="amenities_management.html">Manage Amenities</a></li> -->
+            <li><a href="admin-bookings">View Bookings</a></li>
+            <!-- New link -->
+            <li><a href="../index.html">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-header">
+      <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome back, Admin! Manage your motel efficiently.</p>
+      </div>
+    </div>
+
+    <main>
+      <div class="container">
+        <div class="admin-dashboard">
+          <h2>Quick Actions</h2>
+          <p>Choose an option below to manage your motel.</p>
+          <div class="admin-links">
+            <div class="admin-link-card">
+              <i class="fas fa-bed"></i>
+              <h3>Manage Rooms</h3>
+              <a href="room-management">Go to Room Management</a>
+            </div>
+            <!-- <div class="admin-link-card">
+              <i class="fas fa-concierge-bell"></i>
+              <h3>Manage Amenities</h3>
+              <a href="amenities_management.html">Go to Amenities Management</a>
+            </div> -->
+            <div class="admin-link-card">
+              <i class="fas fa-calendar-alt"></i>
+              <!-- Icon for bookings -->
+              <h3>View Bookings</h3>
+              <a href="admin-bookings">Go to Bookings</a>
+              <!-- Link to admin_bookings.html -->
+            </div>
+            <div class="admin-link-card">
+              <i class="fas fa-sign-out-alt"></i>
+              <h3>Log Out</h3>
+              <a href="../index.html">Log Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <ul class="footer-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../aboutus.html">About Us</a></li>
+            <li><a href="../privacy.html">Privacy Policy</a></li>
+            <li><a href="../terms.html">Terms of Service</a></li>
+            <li><a href="../contact.html">Contact Us</a></li>
+          </ul>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 MotelEase. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
