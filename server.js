@@ -199,6 +199,7 @@ app.post("/signup", async (req, res) => {
       lastName: last_name,
       email: email,
       password: hashedPassword,
+      role: 'user'
     });
 
     // Save the user to the database
