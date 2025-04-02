@@ -16,7 +16,7 @@ const port = 3000;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.static(path.join(__dirname, "public")));
 
 // MongoDB connection
