@@ -211,26 +211,33 @@ app.post("/signup", async (req, res) => {
 });
 
 // Route for login form submission
+// Route for login form submission
 app.post("/login", async (req, res) => {
   console.log("Login route hit");
+
+  // Destructure email and password from the request body
   const { email, password } = req.body;
 
+  // Find the user by email
   const user = await User.findOne({ email });
 
+  // If user is not found, return error message
   if (!user) {
     return res.status(400).json({ error: "Invalid credentials" });
   }
 
+  // Compare provided password with the hashed password in the database
   const isMatch = await bcrypt.compare(password, user.password);
 
+  // If passwords don't match, return error message
   if (!isMatch) {
     return res.status(400).json({ error: "Invalid credentials" });
   }
 
-  // Send the user role as part of the response
+  // Send success response with user role
   res.status(200).json({
     message: "Login successful",
-    role: user.role, // Include the role in the response
+    role: user.role, // Include the user role in the response
   });
 });
 
