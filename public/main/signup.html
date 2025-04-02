@@ -638,7 +638,7 @@
 
         if (password.length >= 8) strength += 25;
         if (password.match(/[A-Z]/)) strength += 25;
-        if (password.match(/[0-9]/)) strength += 25;
+        if (password.match(/\d/)) strength += 25;
         if (password.match(/[^A-Za-z0-9]/)) strength += 25;
 
         strengthBar.style.width = strength + "%";
