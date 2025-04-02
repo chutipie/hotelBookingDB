@@ -212,26 +212,36 @@ app.post("/signup", async (req, res) => {
 
 // Route for login form submission
 app.post("/login", async (req, res) => {
-  console.log("Login route hit");
-  const { email, password } = req.body;
+  console.log("Login route hit with email:", req.body.email);
 
-  const user = await User.findOne({ email });
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
-  if (!user) {
-    return res.status(400).json({ error: "Invalid credentials" });
+    console.log("User found:", user);
+
+    if (!user) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    console.log("Entered password:", password);
+    console.log("Stored password hash:", user.password);
+    console.log("Password match result:", isMatch);
+
+    if (!isMatch) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
+
+    res.status(200).json({
+      message: "Login successful",
+      role: user.role,
+    });
+  } catch (err) {
+    console.error("Error in login route:", err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-
-  const isMatch = await bcrypt.compare(password, user.password);
-
-  if (!isMatch) {
-    return res.status(400).json({ error: "Invalid credentials" });
-  }
-
-  // Send the user role as part of the response
-  res.status(200).json({
-    message: "Login successful",
-    role: user.role, // Include the role in the response
-  });
 });
 
 // Route to handle booking submissions
@@ -323,7 +333,7 @@ app.get("/api/bookings", async (req, res) => {
     // Fetch paginated bookings
     const bookings = await Booking.find(searchQuery)
       .skip((page - 1) * limit) // Skip records for pagination
-      .limit(limit); // Limit the number of records per page
+      .limit(parseInt(limit)); // Limit the number of records per page
 
     // Get the total count of bookings for pagination
     const totalBookings = await Booking.countDocuments(searchQuery);
