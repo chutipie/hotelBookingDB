@@ -213,28 +213,38 @@ app.post("/signup", async (req, res) => {
 
 // Route for login form submission
 app.post("/login", async (req, res) => {
+  // Log the incoming email to check if the request is sent correctly
   console.log("Login route hit with email:", req.body.email);
 
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
 
+    // Check if email and password are present
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
+    }
+
+    // Find the user in the database
+    const user = await User.findOne({ email });
     console.log("User found:", user);
 
     if (!user) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
+    // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
 
     console.log("Entered password:", password);
     console.log("Stored password hash:", user.password);
     console.log("Password match result:", isMatch);
 
+    // If password doesn't match, return an error
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
 
+    // If credentials are correct, return the user's role
     res.status(200).json({
       message: "Login successful",
       role: user.role,
