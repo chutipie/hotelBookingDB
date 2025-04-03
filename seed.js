@@ -21,24 +21,10 @@ const seedDatabase = async () => {
     console.log("Old data cleared.");
 
     // Insert Users
-    const users = await User.insertMany([
-      { firstName: "Alice", lastName: "Smith", email: "alice@example.com", password: await bcrypt.hash("password123", 10) },
-      { firstName: "Bob", lastName: "Brown", email: "bob@example.com", password: await bcrypt.hash("password123", 10) },
-      { firstName: "Charlie", lastName: "Davis", email: "charlie@example.com", password: await bcrypt.hash("password123", 10) },
-      { firstName: "Diana", lastName: "Evans", email: "diana@example.com", password: await bcrypt.hash("password123", 10) },
-      { firstName: "Ethan", lastName: "Foster", email: "ethan@example.com", password: await bcrypt.hash("password123", 10) }
-    ]);
 
     console.log("Users seeded.");
 
     // Insert Rooms
-    const rooms = await Room.insertMany([
-      { type: "Single", name: "Cozy Single Room", images: [], description: "A cozy single room", inclusions: ["WiFi", "TV", "Breakfast"] },
-      { type: "Double", name: "Luxury Double Room", images: [], description: "Spacious double room", inclusions: ["WiFi", "TV", "Pool Access"] },
-      { type: "Suite", name: "Executive Suite", images: [], description: "Luxury suite with sea view", inclusions: ["WiFi", "TV", "Mini Bar"] },
-      { type: "Family", name: "Family Room", images: [], description: "Perfect for families", inclusions: ["WiFi", "TV", "Play Area"] },
-      { type: "Penthouse", name: "Penthouse Suite", images: [], description: "Ultimate luxury", inclusions: ["WiFi", "TV", "Jacuzzi"] }
-    ]);
 
     console.log("Rooms seeded.");
 
