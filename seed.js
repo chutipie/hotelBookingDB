@@ -20,11 +20,24 @@ const seedDatabase = async () => {
 
     console.log("Old data cleared.");
 
-    // Insert Users
+    // Seed Admin User
+    const adminPassword = await bcrypt.hash("admin123", 10); // Hash the admin password
+    await User.create({
+      firstName: "Admin",
+      lastName: "User",
+      email: "admin@example.com",
+      password: adminPassword,
+      role: "admin",
+    });
 
-    console.log("Users seeded.");
+    console.log("Admin user seeded.");
 
-    // Insert Rooms
+    // Insert Rooms (example)
+    await Room.insertMany([
+      { type: "Single", name: "Single Room", description: "A simple single room", inclusions: ["Wi-Fi", "Breakfast"], images: ["image1.jpg"] },
+      { type: "Double", name: "Double Room", description: "A room with a double bed", inclusions: ["Wi-Fi", "Air Conditioning"], images: ["image2.jpg"] },
+      { type: "Suite", name: "Suite Room", description: "A luxurious suite room", inclusions: ["Wi-Fi", "Jacuzzi", "Breakfast"], images: ["image3.jpg"] },
+    ]);
 
     console.log("Rooms seeded.");
 
