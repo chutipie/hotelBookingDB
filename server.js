@@ -190,15 +190,12 @@ app.post("/signup", async (req, res) => {
       return res.status(400).json({ error: "Email is already registered." });
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     // Create a new user
     const newUser = new User({
       firstName: first_name,
       lastName: last_name,
       email: email,
-      password: hashedPassword,
+      password: password,
       role: 'user',
     });
 
